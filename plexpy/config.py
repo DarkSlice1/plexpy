@@ -345,7 +345,7 @@ _CONFIG_DEFINITIONS = {
     'NOTIFY_ON_PMSUPDATE_SUBJECT_TEXT': (unicode, 'Monitoring', 'PlexPy ({server_name})'),
     'NOTIFY_ON_PMSUPDATE_BODY_TEXT': (unicode, 'Monitoring', 'An update is available for the Plex Media Server (version {update_version}).'),
     'NOTIFY_ON_CONCURRENT_SUBJECT_TEXT': (unicode, 'Monitoring', 'PlexPy ({server_name})'),
-    'NOTIFY_ON_CONCURRENT_BODY_TEXT': (unicode, 'Monitoring', '{user} has {user_streams} concurrent streams.'),
+    'NOTIFY_ON_CONCURRENT_BODY_TEXT': (unicode, 'Monitoring', 'We\'re streaming {concurrent_users_streams} concurrent streams on the server from {concurrent_users}'),
     'NOTIFY_ON_NEWDEVICE_SUBJECT_TEXT': (unicode, 'Monitoring', 'PlexPy ({server_name})'),
     'NOTIFY_ON_NEWDEVICE_BODY_TEXT': (unicode, 'Monitoring', '{user} is streaming from a new device: {player}.'),
     'NOTIFY_SCRIPTS_ARGS_TEXT': (unicode, 'Monitoring', ''),

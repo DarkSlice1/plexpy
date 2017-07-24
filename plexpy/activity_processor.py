@@ -122,6 +122,19 @@ class ActivityProcessor(object):
                     user_sessions = self.get_session_by_user_id(user_id=session['user_id'],
                                                                 ip_address=plexpy.CONFIG.NOTIFY_CONCURRENT_BY_IP)
                     if len(user_sessions) >= plexpy.CONFIG.NOTIFY_CONCURRENT_THRESHOLD:
+                        # Push any notifications - Push it on it's own thread so we don't hold up our db actions	
+                        concurrent_users = ""
+						
+                        for session in user_sessions:
+							if session:
+								concurrent_users +=  session['user'] + ", "
+
+                        values.update({'concurrent_users': concurrent_users})
+                        values.update({'concurrent_users_streams': len(user_sessions)})
+
+                        #logger.info("concurrent_users = %s", values['concurrent_users'])
+                        #logger.info("concurrent users count = %s", values['concurrent_users_streams'])
+						
                         # Push any notifications - Push it on it's own thread so we don't hold up our db actions
                         threading.Thread(target=notification_handler.notify,
                                          kwargs=dict(stream_data=values, notify_action='concurrent')).start()
@@ -486,11 +499,5 @@ class ActivityProcessor(object):
             return None
 
     def get_session_by_user_id(self, user_id=None, ip_address=None):
-        sessions = []
-        if str(user_id).isdigit():
-            ip = 'GROUP BY ip_address' if ip_address else ''
-            sessions = self.db.select('SELECT * '
-                                      'FROM sessions '
-                                      'WHERE user_id = ? %s' % ip,
-                                      [user_id])
+        sessions = self.db.select('SELECT * FROM sessions ')
         return sessions

@@ -852,7 +852,9 @@ def build_notify_text(session=None, timeline=None, notify_action=None, agent_id=
                         'section_id': metadata['section_id'],
                         'rating_key': metadata['rating_key'],
                         'parent_rating_key': metadata['parent_rating_key'],
-                        'grandparent_rating_key': metadata['grandparent_rating_key']
+                        'grandparent_rating_key': metadata['grandparent_rating_key'],
+                        'concurrent_users': session.get('concurrent_users',''),
+                        'concurrent_users_streams': session.get('concurrent_users_streams','')
                         }
 
     # Default subject text
